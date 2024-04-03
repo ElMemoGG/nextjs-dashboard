@@ -4,14 +4,16 @@ import LatestInvoices from '@/app/ui/dashboard/latest-invoices';
 import { lusitana } from '@/app/ui/fonts';
 import { fetchRevenue, fetchLatestInvoices, fetchCardData } from '@/app/lib/data';
 import { Suspense } from 'react';
+import { LatestInvoicesSkeleton, RevenueChartSkeleton } from '../ui/skeletons';
+import { unstable_noStore as noStore } from 'next/cache';
 
 /* export const dynamicParams = true
 export const dynamic = 'force-dynamic'
 export const fetchCache = 'force-no-store' */
 
 export default async function DashboardPage() {
-    const revenue = await fetchRevenue();
-    const latestInvoices = await fetchLatestInvoices();
+  noStore()
+    
     const {
       numberOfInvoices,
       numberOfCustomers,
@@ -35,12 +37,14 @@ export default async function DashboardPage() {
           />
         </div>
         <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-4 lg:grid-cols-8">
-         {/*  <Suspense fallback={<div>Cargando...</div>}>
-          <RevenueChart revenue={revenue}  />
-          </Suspense> */}
-          <RevenueChart revenue={revenue}  />
+          <Suspense fallback={<RevenueChartSkeleton/>}>
+            <RevenueChart   />
+          </Suspense>
+          {/* <RevenueChart revenue={revenue} /> */}
+          <Suspense fallback={<LatestInvoicesSkeleton/>}>
+          <LatestInvoices  />
+          </Suspense>
           
-          <LatestInvoices latestInvoices={latestInvoices} />
         </div>
       </main>
     );
