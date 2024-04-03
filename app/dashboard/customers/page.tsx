@@ -1,6 +1,9 @@
+"use client";
 
+import { useSearchParams } from "next/navigation";
+export default function CustomersPages({searchParams, }: { searchParams: { id: string | undefined}}) {
 
-
-export default function CustomersPages() {
-    return <p>Customers </p>;
+  console.log(searchParams.id)
+  
+    return <p>Customers {searchParams.id}</p>;
   }

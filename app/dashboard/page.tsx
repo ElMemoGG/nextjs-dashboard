@@ -1,3 +1,6 @@
+
+
+
 import { Card } from '@/app/ui/dashboard/cards';
 import RevenueChart from '@/app/ui/dashboard/revenue-chart';
 import LatestInvoices from '@/app/ui/dashboard/latest-invoices';
@@ -6,12 +9,17 @@ import { fetchRevenue, fetchLatestInvoices, fetchCardData } from '@/app/lib/data
 import { Suspense } from 'react';
 import { LatestInvoicesSkeleton, RevenueChartSkeleton } from '../ui/skeletons';
 import { unstable_noStore as noStore } from 'next/cache';
+import NextId from '../ui/dashboard/next-id';
 
 /* export const dynamicParams = true
 export const dynamic = 'force-dynamic'
 export const fetchCache = 'force-no-store' */
 
-export default async function DashboardPage() {
+export default async function DashboardPage({
+  searchParams,
+}: {
+  searchParams: { id: string | undefined; include: string | undefined };
+}) {
   noStore()
     
     const {
@@ -23,6 +31,7 @@ export default async function DashboardPage() {
 
     return (
       <main>
+        <NextId/>
         <h1 className={`${lusitana.className} mb-4 text-xl md:text-2xl`}>
           Dashboard
         </h1>
