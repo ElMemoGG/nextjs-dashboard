@@ -10,6 +10,8 @@ import { Suspense } from 'react';
 import { LatestInvoicesSkeleton, RevenueChartSkeleton } from '../ui/skeletons';
 import { unstable_noStore as noStore } from 'next/cache';
 import NextId from '../ui/dashboard/next-id';
+import NextPage from '../ui/dashboard/next-page';
+
 
 /* export const dynamicParams = true
 export const dynamic = 'force-dynamic'
@@ -31,7 +33,8 @@ export default async function DashboardPage({
 
     return (
       <main>
-        <NextId/>
+        {/* <NextId/> */}
+        <NextPage/>
         <h1 className={`${lusitana.className} mb-4 text-xl md:text-2xl`}>
           Dashboard
         </h1>
