@@ -10,19 +10,23 @@ import {
 } from './definitions';
 import { formatCurrency } from './utils';
 import { unstable_noStore as noStore } from 'next/cache';
+/* export const dynamicParams = true
+export const dynamic = 'force-dynamic'
+export const fetchCache = 'force-no-store'
+export const revalidate = 0 */
 
 
 export async function fetchRevenue() {
-  // Add noStore() here to prevent the response from being cached.
+  // Add //noStore()() here to prevent the response from being cached.
   // This is equivalent to in fetch(..., {cache: 'no-store'}).
-  noStore()
+  //noStore()
 
   try {
     // Artificially delay a response for demo purposes.
     // Don't do this in production :)
 
     // console.log('Fetching revenue data...');
-     /* await new Promise((resolve) => setTimeout(resolve, 4000)); */
+     /* await new Promise((resolve) => setTimeout(resolve, 3000)); */
 
     const data = await sql<Revenue>`SELECT * FROM revenue`;
 
@@ -36,11 +40,11 @@ export async function fetchRevenue() {
 }
 
 export async function fetchLatestInvoices() {
-  noStore();
+  //noStore();
 
   try {
-
     /* await new Promise((resolve) => setTimeout(resolve, 6000)); */
+    
     const data = await sql<LatestInvoiceRaw>`
       SELECT invoices.amount, customers.name, customers.image_url, customers.email, invoices.id
       FROM invoices
@@ -101,7 +105,7 @@ export async function fetchFilteredInvoices(
   query: string,
   currentPage: number,
 ) {
-  noStore();
+  //noStore();
 
   const offset = (currentPage - 1) * ITEMS_PER_PAGE;
 
@@ -135,7 +139,7 @@ export async function fetchFilteredInvoices(
 }
 
 export async function fetchInvoicesPages(query: string) {
-  noStore();
+  //noStore();
 
   try {
     const count = await sql`SELECT COUNT(*)
@@ -158,7 +162,7 @@ export async function fetchInvoicesPages(query: string) {
 }
 
 export async function fetchInvoiceById(id: string) {
-  noStore();
+  //noStore();
 
   try {
     const data = await sql<InvoiceForm>`
@@ -185,7 +189,7 @@ export async function fetchInvoiceById(id: string) {
 }
 
 export async function fetchCustomers() {
-  noStore();
+  //noStore();
 
   try {
     const data = await sql<CustomerField>`
@@ -205,7 +209,7 @@ export async function fetchCustomers() {
 }
 
 export async function fetchFilteredCustomers(query: string) {
-  noStore();
+  //noStore();
 
   try {
     const data = await sql<CustomersTableType>`
@@ -240,7 +244,7 @@ export async function fetchFilteredCustomers(query: string) {
 }
 
 export async function getUser(email: string) {
-  noStore();
+  //noStore();
 
   try {
     const user = await sql`SELECT * FROM users WHERE email=${email}`;
