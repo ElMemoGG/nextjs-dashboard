@@ -162,7 +162,7 @@ export async function fetchInvoicesPages(query: string) {
 }
 
 export async function fetchInvoiceById(id: string) {
-  //noStore();
+  /* noStore(); */
 
   try {
     const data = await sql<InvoiceForm>`
@@ -180,6 +180,8 @@ export async function fetchInvoiceById(id: string) {
       // Convert amount from cents to dollars
       amount: invoice.amount / 100,
     }));
+
+
 
     return invoice[0];
   } catch (error) {
